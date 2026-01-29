@@ -1,29 +1,25 @@
 let products = document.querySelectorAll('.product-list');
+let params = new URLSearchParams(window.location.search);
+let query = params.get('q');
 
 fetch("https://dummyjson.com/products")
 .then(res => res.json())
 .then(data => {
-    data.products.forEach(product => {
+    let productList = data.products;
+    let filteredProducts = productList.filter(product =>{
+        return product.title.toLowerCase().includes(query.toLowerCase());
+    }); 
+    
+    filteredProducts.forEach(product => {
         products.forEach(productList => {
             let productItem = document.createElement('div');
             productItem.classList.add('item');
             productItem.innerHTML = `
                 <img src="${product.thumbnail}" alt="${product.title}" />
                 <h3>${product.title}</h3>
-                <p>Price: $${product.price}</p>
-                <button style="padding: 8px 16px; align-self: end">Add to Cart</button>
+                <p>Price: $${product.price}</p>                
             `;
             productList.appendChild(productItem);
         });
-       
     });
-});
-
-const searchBtn = document.getElementById('searchButton');
-const searchInput = document.getElementById('searchInput');
-
-searchBtn.addEventListener('click', () => {
-    const query = searchInput.value.trim();
-    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-    searchInput.value = '';
 });
