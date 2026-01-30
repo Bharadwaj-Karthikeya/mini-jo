@@ -9,10 +9,8 @@ history.forEach(item => {
     let date = new Date(item.time);
     let formattedTime = date.toLocaleString();
     listItem.innerHTML = `
-       
         <strong class="query">${item.query}</strong>
         <span class="time">${formattedTime}</span>
-        
     `;
     historyList.appendChild(listItem);
 });
