@@ -11,9 +11,13 @@ fetch("https://dummyjson.com/products")
                 <img src="${product.thumbnail}" alt="${product.title}" />
                 <h3>${product.title}</h3>
                 <p>Price: $${product.price}</p>
-                <button style="padding: 8px 16px; align-self: end">Add to Cart</button>
+                <p>Rating: ${product.rating}</p>
             `;
             productList.appendChild(productItem);
+            productItem.addEventListener("click", () => {
+                console.log(product.id, "clicked");
+                window.location.href = `product.html?id=${product.id}`;
+            });
         });
        
     });
