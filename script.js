@@ -24,6 +24,45 @@ const searchInput = document.getElementById('searchInput');
 
 searchBtn.addEventListener('click', () => {
     const query = searchInput.value.trim();
+    
+    let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+    const exists = history.some(item => item.query.toLowerCase() === query.toLowerCase());
+    
+    if (!exists) {
+        history.push({
+            query: query,
+            time: Date.now()
+        });
+        localStorage.setItem('searchHistory', JSON.stringify(history));
+    }
+
     window.location.href = `search.html?q=${encodeURIComponent(query)}`;
     searchInput.value = '';
+});
+
+const suggestionsDiv = document.getElementById('suggestions');
+
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    
+
+    const matches = history.filter(item => 
+        item.query.toLowerCase().includes(query)
+    );
+    // console.log(matches);
+    suggestionsDiv.innerHTML = '';
+
+    matches.forEach(match => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.className = 'suggestion-item';
+        suggestionItem.textContent = match.query;
+        suggestionsDiv.appendChild(suggestionItem);
+        suggestionItem.addEventListener('click', () => {
+            searchInput.value = match.query;
+            suggestionsDiv.innerHTML = '';
+            searchBtn.click();
+        });
+    });
 });
