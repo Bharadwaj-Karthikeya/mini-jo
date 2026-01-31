@@ -1,3 +1,4 @@
+// Manages product listing, pagination, search, and view-history capture.
 const itemsContainer = document.querySelector('.product-list');
 const prevPageButton = document.getElementById('prevPageButton');
 const nextPageButton = document.getElementById('nextPageButton');
@@ -46,6 +47,7 @@ searchBtn.addEventListener('click', () => {
 const suggestionsDiv = document.getElementById('suggestions');
 
 searchInput.addEventListener('input', () => {
+    
     const query = searchInput.value.trim().toLowerCase();
     const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
     
@@ -53,7 +55,6 @@ searchInput.addEventListener('input', () => {
     const matches = history.filter(item => 
         item.query.toLowerCase().includes(query)
     );
-    // console.log(matches);
     suggestionsDiv.innerHTML = '';
 
     matches.forEach(match => {
@@ -69,6 +70,11 @@ searchInput.addEventListener('input', () => {
     });
 });
 
+searchInput.addEventListener('blur', () => {
+    setTimeout(() => {
+        suggestionsDiv.innerHTML = '';
+    }, 100);
+});
 
 function renderPagination(){
     if (!itemsContainer) {

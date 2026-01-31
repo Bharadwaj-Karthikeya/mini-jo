@@ -1,3 +1,4 @@
+// Filters the catalog by query param and renders search results.
 let products = document.querySelectorAll('.product-list');
 let params = new URLSearchParams(window.location.search);
 let query = params.get('q');

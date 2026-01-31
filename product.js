@@ -1,11 +1,10 @@
+// Loads and renders the detailed product view for product.html.
 let params = new URLSearchParams(window.location.search);   
 let productId = params.get('id');
 
 fetch(`https://dummyjson.com/products/${productId}`)
 .then(res => res.json())
 .then(product => {
-    // console.log(product);
-
     let detailDiv = document.getElementsByClassName('container')[0];
     
     detailDiv.innerHTML = `

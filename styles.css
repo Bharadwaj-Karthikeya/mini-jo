@@ -106,7 +106,8 @@ nav button {
     width : 300px;
     height: 30px;
     align-content: center;
-
+    position: absolute;
+    z-index: 1;
 }
 .query{
     text-align: left;

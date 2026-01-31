@@ -1,3 +1,4 @@
+// Shows the recently viewed products list and clears it on demand.
 let viewHistory = JSON.parse(localStorage.getItem('viewHistory')) || [];
 let viewList = document.querySelector('.view-list');
 viewHistory.sort((a, b) => b.time - a.time);

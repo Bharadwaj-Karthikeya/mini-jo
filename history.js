@@ -1,3 +1,4 @@
+// Displays saved search queries and lets users clear them.
 let history = JSON.parse(localStorage.getItem('searchHistory')) || [];
 let historyList = document.querySelector('.history-list');
 
